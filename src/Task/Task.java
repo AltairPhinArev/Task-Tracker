@@ -3,7 +3,7 @@ package Task;
 public class Task {
     private int id;
     private String title;
-    public String statusTask;
+    private String statusTask;
     private String discrption;
     public Task(int id , String title , String statusTask , String discrption) {
         this.id = id;
@@ -48,10 +48,10 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "id =" + id +
-                ", title ='" + title + '\'' +
-                ", statusTask ='" + statusTask + '\'' +
-                ", discrption ='" + discrption + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", statusTask='" + statusTask + '\'' +
+                ", discrption='" + discrption + '\'' +
                 '}';
     }
 }
