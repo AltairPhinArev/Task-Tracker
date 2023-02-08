@@ -7,12 +7,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager tm = new TaskManager();
-            Epic epic = new Epic(2 , "Understand How it work" , "NEW" , "AWS SERVER");
-            epic.setTitle("Understand How it work");
-            epic.setStatusTask("NEW");
-            tm.addEpic(epic);
-            System.out.println(epic);
+        Epic epic = new Epic(1,  "Understand How it work" , "EEE" , "AWS SERVER");
+            tm.createEpic(epic);
             tm.printAllEpic();
-
     }
 }
