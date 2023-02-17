@@ -3,24 +3,24 @@ package Task;
 public class Task {
     private int id;
     private String title;
-    private String statusTask;
+    private StatusTask statusTask;
     private String discrption;
-    public Task(int id , String title , String statusTask , String discrption) {
+    public Task(int id , String title , StatusTask statusTask , String discrption) {
         this.id = id;
         this.title = title;
         this.statusTask = statusTask;
         this.discrption = discrption;
     }
-    public Task(String title , String statusTask , String discrption) {
+    public Task(String title , StatusTask statusTask , String discrption) {
         this.title = title;
         this.statusTask = statusTask;
         this.discrption = discrption;
     }
 
-    public String getStatusTask() {
+    public StatusTask getStatusTask() {
         return statusTask;
     }
-    public void setStatusTask(String statusTask) {
+    public void setStatusTask(StatusTask statusTask) {
         this.statusTask = statusTask;
     }
 
