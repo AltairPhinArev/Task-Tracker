@@ -4,7 +4,7 @@ import Manager.*;
 public class Main {
 
     public static void main(String[] args) {
-        InMemoryTaskManager tm = Managers.getDefault();
+        TaskManager tm = Managers.getDefault();
         Epic epic = new Epic("Understand How it work" , StatusTask.NEW , "PRACTICUM");
         Epic epic1 = new Epic("Hard learn" , StatusTask.NEW , "PRACR");
         Task task = new Task("Hard learn java" , StatusTask.IN_PROGRESS , "PRACTICUM");
