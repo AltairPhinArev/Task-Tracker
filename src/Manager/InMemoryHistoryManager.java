@@ -18,10 +18,11 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
 
     @Override
     public void addHistory(Task task) {
-        if(taskId.size() <= 10) {
+        if(taskId.size() < 10) {
             taskId.add(task);
         } else {
             taskId.remove(0);
+            taskId.add(task);
         }
     }
 

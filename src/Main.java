@@ -13,11 +13,10 @@ public class Main {
         Subtask subtask1 = new Subtask( 3, "Hard learn java" , StatusTask.NEW , "PRACTICUM");
         Subtask subtask2 = new Subtask(3 , "PRINT Subtask" , StatusTask.DONE , "PRACTICUM");
         Subtask subtask3 = new Subtask(4 , "THough about life" , StatusTask.NEW , "I am empty");
-        
-
 
             tm.crateTask(task);
             tm.crateTask(task1);
+
             tm.createEpic(epic);
             tm.createEpic(epic1);
 
@@ -30,10 +29,11 @@ public class Main {
             System.out.println(tm.printAllSubtask());
             System.out.println(tm.printAllTask());
 
-
             System.out.println(tm.printTaskById(2));
             System.out.println(tm.printEpicById(4));
             tm.removeTask(2);
+
+            System.out.println();
             System.out.println("Histyory by ID");
             System.out.println();
             System.out.println(tm.getHistory());
