@@ -5,38 +5,43 @@ public class Main {
 
     public static void main(String[] args) {
         TaskManager tm = Managers.getDefault();
-        Epic epic = new Epic("Understand How it work" , StatusTask.NEW , "PRACTICUM");
-        Epic epic1 = new Epic("Hard learn" , StatusTask.NEW , "PRACR");
-        Task task = new Task("Hard learn java" , StatusTask.IN_PROGRESS , "PRACTICUM");
-        Task task1 = new Task( "Start to run" , StatusTask.NEW, "NOTHING ELSE DECRIPTION");
-        Subtask subtask = new Subtask( 3, "Hard learn java" , StatusTask.NEW , "PRACTICUM");
-        Subtask subtask1 = new Subtask( 3, "Hard learn java" , StatusTask.NEW , "PRACTICUM");
-        Subtask subtask2 = new Subtask(3 , "PRINT Subtask" , StatusTask.DONE , "PRACTICUM");
-        Subtask subtask3 = new Subtask(4 , "THough about life" , StatusTask.NEW , "I am empty");
+        Epic epic = new Epic("Understand How it work" , StatusTask.NEW,  "epic"); //1
+        Epic epic1 = new Epic("Hard learn" , StatusTask.NEW , "epic1"); //2
+        Task task = new Task("Hard learn java" , StatusTask.IN_PROGRESS , "task");
+        Task task1 = new Task( "Start to run" , StatusTask.NEW, "task1");
+        Subtask subtask = new Subtask( 3, "Hard learn java" , StatusTask.NEW , "subtask");
+        Subtask subtask1 = new Subtask( 3, "Hard learn java" , StatusTask.NEW , "subtask2");
+        Subtask subtask2 = new Subtask(3 , "PRINT Subtask" , StatusTask.IN_PROGRESS , "PRACTICUM");
+        Subtask subtask3 = new Subtask(4 , "THough about life" , StatusTask.NEW , "subtask3");
+        Subtask subtask4 = new Subtask(4,"Hello" , StatusTask.NEW , "subtask4");
+        Task task2 = new Task("Hello" , StatusTask.NEW , "task2");
 
-            tm.crateTask(task);
-            tm.crateTask(task1);
+            tm.crateTask(task);  // id-1
+            tm.crateTask(task1); // id-2
 
-            tm.createEpic(epic);
-            tm.createEpic(epic1);
+            tm.createEpic(epic);  // id-3
+            tm.createEpic(epic1); // id-4
 
-            tm.createSubTask(subtask);
-            tm.createSubTask(subtask1);
-            tm.createSubTask(subtask2);
-            tm.createSubTask(subtask3);
+            tm.createSubTask(subtask); // id-5
+            tm.createSubTask(subtask1); // id-6
+            tm.createSubTask(subtask2); // id-7
+            tm.createSubTask(subtask3); // id-8
+            tm.createSubTask(subtask4); // id-9
 
-            System.out.println(tm.printAllEpic());
-            System.out.println(tm.printAllSubtask());
-            System.out.println(tm.printAllTask());
+            tm.crateTask(task2); // id-10
 
+            System.out.println(tm.printEpicById(3));
+            System.out.println(tm.printTaskById(10));
             System.out.println(tm.printTaskById(2));
             System.out.println(tm.printEpicById(4));
-            tm.removeTask(2);
+            System.out.println(tm.printSubtaskById(8));
+
+            tm.removeEpicById(3);
+            tm.removeEpicById(4);
 
             System.out.println();
             System.out.println("Histyory by ID");
             System.out.println();
             System.out.println(tm.getHistory());
-
     }
 }
