@@ -36,8 +36,6 @@ public class Main {
             System.out.println(tm.printEpicById(4));
             System.out.println(tm.printSubtaskById(8));
 
-            tm.removeEpicById(3);
-            tm.removeEpicById(4);
 
             System.out.println();
             System.out.println("Histyory by ID");

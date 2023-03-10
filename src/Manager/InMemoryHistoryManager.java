@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class InMemoryHistoryManager extends Managers implements HistoryManager {
 
     private final CustomLinkedList<Task> customLinkedList = new CustomLinkedList<>();
-    private final HashMap<Integer, Node<Task>> HistoryMap = new HashMap<>();
+    private final HashMap<Integer, Node<Task>> historyMap = new HashMap<>();
 
         @Override
         public ArrayList<Task> getHistory() {
@@ -17,26 +17,26 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
         }
 
         public void add(Task task) {
-            if(customLinkedList.size() < 10) {
+            if(customLinkedList.size < 10) {
                 Node<Task> newNode = customLinkedList.linkLast(task);
-                HistoryMap.put(task.getId(), newNode);
+                historyMap.put(task.getId(), newNode);
             } else {
-                customLinkedList.remove(0);
+                customLinkedList.remove(customLinkedList.head);
                 customLinkedList.add(task);
             }
         }
 
     @Override
     public void remove(int id) {
-        if (HistoryMap.get(id) == null) {
+        if (historyMap.get(id) == null) {
             return;
         }
-        customLinkedList.removeNode(HistoryMap.get(id));
-        HistoryMap.remove(id);
+        customLinkedList.removeNode(historyMap.get(id));
     }
 
-     class CustomLinkedList<T> extends LinkedList<T>{
+      class CustomLinkedList<T> extends LinkedList<T>{
         public Node<T> head;
+        private int size = 0;
         public Node<T> tail;
 
         private Node<T> linkLast(T data) {
@@ -48,6 +48,7 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
                 } else {
                     oldTail.next = newNode;
                 }
+                size++;
                 return newNode;
         }
 
@@ -64,8 +65,10 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
             } else {
                 nodeToRemove.next.prev = nodeToRemove.prev;
             }
+            if(historyMap.containsKey(nodeToRemove)) {
+                historyMap.remove(nodeToRemove);
+            }
         }
-
         public ArrayList<T> getTask() {
             ArrayList<T> taskList = new ArrayList<>();
             if (head != null) {
