@@ -1,0 +1,14 @@
+id,type,name,status,description,epic 
+1,TASK,Hard learn java,IN_PROGRESS,task
+2,TASK,Start to run,NEW,task1
+3,EPIC,Understand How it work,IN_PROGRESS,epic,[5, 6, 7]
+4,EPIC,Hard learn,NEW,epic1,[8, 9]
+5,SUBTASK,Hard learn java,NEW,subtask,3
+6,SUBTASK,Hard learn java,NEW,subtask2,3
+7,SUBTASK,PRINT Subtask,IN_PROGRESS,PRACTICUM,3
+8,SUBTASK,THough about life,NEW,subtask3,4
+9,SUBTASK,Hello,NEW,subtask4,4
+10,TASK,Hello,NEW,task2
+
+History Task
+[]

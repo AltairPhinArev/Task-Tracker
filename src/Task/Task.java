@@ -1,8 +1,11 @@
 package Task;
 
+import java.util.ArrayList;
+
 public class Task {
     private int id;
     private String title;
+    private TypeTask typeTask;
     private StatusTask statusTask;
     private String discrption;
     public Task(int id , String title , StatusTask statusTask , String discrption) {
@@ -15,6 +18,9 @@ public class Task {
         this.title = title;
         this.statusTask = statusTask;
         this.discrption = discrption;
+    }
+
+    public Task() {
     }
 
     public StatusTask getStatusTask() {
@@ -44,6 +50,14 @@ public class Task {
     public void setDiscrption(String discrption) {
         this.discrption = discrption;
     }
+
+    public TypeTask getTypeTask() {
+        return typeTask;
+    }
+    public void setTypeTask(TypeTask typeTask) {
+        this.typeTask = typeTask;
+    }
+
 
     @Override
     public String toString() {

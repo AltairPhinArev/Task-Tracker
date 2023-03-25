@@ -10,5 +10,8 @@ public abstract class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
+    public static FileBackedTasksManager getDefaultFile() {
+        return new FileBackedTasksManager();
+    }
 }
 

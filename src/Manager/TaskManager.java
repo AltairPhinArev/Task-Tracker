@@ -2,18 +2,19 @@ package Manager;
 
 import Task.*;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface TaskManager {
 
     void removeAllTask();
 
-    void crateTask(Task task);
+    void crateTask(Task task) throws IOException;
 
     void updateTask(Task task);
 
 
-    void createEpic(Epic epic);
+    void createEpic(Epic epic) throws IOException;
 
     void updateEpic(Epic epic);
 
@@ -25,7 +26,7 @@ public interface TaskManager {
 
     List<Epic> printAllEpic();
 
-    void createSubTask(Subtask subtask);
+    void createSubTask(Subtask subtask) throws IOException;
 
     void updateSubtaskTitle(Subtask subtask);
 
@@ -41,7 +42,7 @@ public interface TaskManager {
 
     void removeSubTaskById(int id);
 
-    List<Task> getHistory();
+    List<Task> getHistory() throws IOException;
 
     List<Subtask> printAllSubtaskByEpic(Epic epic);
 }
