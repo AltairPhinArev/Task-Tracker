@@ -1,4 +1,4 @@
-id,type,name,status,description,epic 
+id,type,name,status,description,epic
 1,TASK,Hard learn java,IN_PROGRESS,task
 2,TASK,Start to run,NEW,task1
 3,EPIC,Understand How it work,IN_PROGRESS,epic,[5, 6, 7]
@@ -10,5 +10,3 @@ id,type,name,status,description,epic
 9,SUBTASK,Hello,NEW,subtask4,4
 10,TASK,Hello,NEW,task2
 
-History Task
-[]
