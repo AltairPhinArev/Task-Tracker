@@ -10,8 +10,12 @@ import java.util.List;
 
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
+    public File file;
+    public FileBackedTasksManager(File file) {
+        this.file = file;
+    }
 
-    public static void loadFromFile(File file) throws ManagerSaveException {
+    public static FileBackedTasksManager loadFromFile(File file) throws ManagerSaveException {
         try {
             Reader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
@@ -25,22 +29,34 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 } else {
                     line = br.readLine();
                     String[] taskFromLine = line.split(",");
-                    if (taskFromLine.length < 4) {
+                    if (line.isBlank()) {
                         break;
                     }
-
                     switch (taskFromLine[1]) {
                         case "TASK":
-                            task = new Task();
-                            break;
+                            if (line.isBlank()) {
+                                break;
+                            } else {
+                                task = new Task();
+                                break;
+                            }
                         case "EPIC":
-                            task = new Epic();
-                            break;
+                            if (line.isBlank()) {
+                                break;
+                            } else {
+                                task = new Epic();
+                                break;
+                            }
                         case "SUBTASK":
-                            task = new Subtask();
-                            break;
+                            if (line.isBlank()) {
+                                break;
+                            } else {
+                                task = new Subtask();
+                                break;
+                            }
                     }
-                    if (!line.equals("History Task")) {
+
+                    if (!line.isBlank()) {
                         task.setId(Integer.parseInt(taskFromLine[0]));
                         task.setTitle(taskFromLine[2]);
                         task.setStatusTask(StatusTask.valueOf(taskFromLine[3]));
@@ -55,25 +71,42 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                             subtask.setEpicId(Integer.parseInt(taskFromLine[5]));
                             subtaskById.put(subtask.getId(), subtask);
                             epicById.get(subtask.getEpicId()).getSubtasksIds().add(subtask.getId());
+                        }
                         } else {
                             if (line.isBlank()) {
                                 br.readLine();
                                 String[] historyString = line.split(",");
                                 for (int i = 0; i < historyString.length; i++) {
-                                     historyFromString(historyString[i] , Managers.getDefaultFile());
-                                }
+                                 Managers.getDefaultHistory().getHistory().addAll(
+                                 historyFromId(historyFromString(historyString[i] , Managers.getDefaultFile(file))));
                             }
                         }
                     }
                 }
             }
             br.close();
+            return new FileBackedTasksManager(file);
         } catch (IOException exception) {
             throw new ManagerSaveException(exception.getMessage());
         }
     }
 
-        static List<Integer> historyFromString(String value, FileBackedTasksManager manager) throws IOException {
+    public static List<Task> historyFromId(List<Integer> historyId) {
+
+        List<Task> historyFullData = new ArrayList<>();
+        for (Integer integer : historyId) {
+            if (taskById.containsKey(integer)) {
+                historyFullData.add(taskById.get(integer));
+            } else if (epicById.containsKey(integer)) {
+                historyFullData.add(epicById.get(integer));
+            } else if (subtaskById.containsKey(integer)) {
+                historyFullData.add(subtaskById.get(integer));
+            }
+        }
+        return historyFullData;
+    }
+
+        static List<Integer> historyFromString(String value, FileBackedTasksManager manager)  {
             List<Integer> history = new ArrayList<>();
             String[] items = value.split(",");
             for (int i = 0; i < items.length; i++) {
@@ -83,16 +116,14 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             return history;
         }
 
-    public static String historyToString(HistoryManager manager) throws ManagerSaveException {
-            String historyLine = null;
+    public static String historyToString(HistoryManager manager) {
+            String historyLine = "";
             for(int i = 0; i < manager.getHistory().size(); i++) {
                 historyLine = String.valueOf(manager.getHistory().get(i).getId());
                 historyLine = "," + historyLine;
         }
                 return historyLine;
     }
-
-
 
     public String epicToString(Epic epic) {
 
@@ -125,8 +156,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public void save() throws IOException {
         try {
-            Path path = Paths.get("Resources.csv");
-            FileWriter fileWriter = new FileWriter(path.toFile());
+            FileWriter fileWriter = new FileWriter(file);
             fileWriter.write("id,type,name,status,description,epic \n");
 
             for (Task task : taskById.values()) {

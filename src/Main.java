@@ -12,7 +12,7 @@ public class Main {
 
             File file = new File("Resources.csv");
 
-            FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager();
+            FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(file);
             FileBackedTasksManager.loadFromFile(file);
 
             System.out.println(fileBackedTasksManager.printAllEpic());
