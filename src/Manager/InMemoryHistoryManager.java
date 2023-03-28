@@ -4,7 +4,7 @@ import Task.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+
 
 public class InMemoryHistoryManager extends Managers implements HistoryManager {
 
@@ -17,14 +17,10 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
         }
 
         public void add(Task task) {
-            if(customLinkedList.size < 10) {
                 Node<Task> newNode = customLinkedList.linkLast(task);
                 historyMap.put(task.getId(), newNode);
-            } else {
-                customLinkedList.remove(customLinkedList.head);
-                customLinkedList.add(task);
-            }
         }
+
 
     @Override
     public void remove(int id) {
@@ -34,7 +30,7 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
         customLinkedList.removeNode(historyMap.get(id));
     }
 
-      class CustomLinkedList<T> extends LinkedList<T>{
+      class CustomLinkedList<T> {
         public Node<T> head;
         private int size = 0;
         public Node<T> tail;

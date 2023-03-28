@@ -3,8 +3,6 @@ package Manager;
 import Task.*;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +15,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static FileBackedTasksManager loadFromFile(File file) throws ManagerSaveException {
         try {
+            FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(file);
             Reader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
             Task task = null;
@@ -56,7 +55,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                             }
                     }
 
-                    if (!line.isBlank()) {
                         task.setId(Integer.parseInt(taskFromLine[0]));
                         task.setTitle(taskFromLine[2]);
                         task.setStatusTask(StatusTask.valueOf(taskFromLine[3]));
@@ -100,27 +98,26 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                                 idNewNum = Integer.parseInt(taskFromLine[0]);
                             }
                             epicById.get(subtask.getEpicId()).getSubtasksIds().add(subtask.getId());
-                        }
-                        } else {
+
                             if (line.isBlank()) {
                                 br.readLine();
                                 String[] historyString = line.split(",");
                                 for (int i = 0; i < historyString.length; i++) {
-                                 Managers.getDefaultHistory().getHistory().addAll(
-                                 historyFromId(historyFromString(historyString[i] , Managers.getDefaultFile(file))));
+                                 Managers.getDefaultHistory().getHistory().add(
+                                 historyFromId(historyFromString(historyString[i])).get(i));
                             }
                         }
                     }
                 }
             }
             br.close();
-            return new FileBackedTasksManager(file);
+            return fileBackedTasksManager;
         } catch (IOException exception) {
             throw new ManagerSaveException(exception.getMessage());
         }
     }
 
-    public static List<Task> historyFromId(List<Integer> historyId) {
+    private static List<Task> historyFromId(List<Integer> historyId) {
 
         List<Task> historyFullData = new ArrayList<>();
         for (Integer integer : historyId) {
@@ -135,7 +132,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         return historyFullData;
     }
 
-        static List<Integer> historyFromString(String value, FileBackedTasksManager manager)  {
+        private static List<Integer> historyFromString(String value)  {
             List<Integer> history = new ArrayList<>();
             String[] items = value.split(",");
             for (int i = 0; i < items.length; i++) {
@@ -145,7 +142,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             return history;
         }
 
-    public static String historyToString(HistoryManager manager) {
+    private static String historyToString(HistoryManager manager) {
             String historyLine = "";
             for(int i = 0; i < manager.getHistory().size(); i++) {
                 historyLine = String.valueOf(manager.getHistory().get(i).getId());
@@ -154,7 +151,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 return historyLine;
     }
 
-    public String epicToString(Epic epic) {
+    private String epicToString(Epic epic) {
 
         return epic.getId() + "," +
                 epic.getTypeTask() + "," +
@@ -164,7 +161,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 epic.getSubtasksIds();
     }
 
-    public String taskToString(Task task) {
+    private String taskToString(Task task) {
 
         return task.getId() + "," +
                 TypeTask.TASK + "," +
@@ -173,7 +170,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 task.getDiscrption();
     }
 
-    public String subtaskToString(Subtask subtask) {
+    private String subtaskToString(Subtask subtask) {
 
         return subtask.getId() + "," +
                 subtask.getTypeTask() + "," +
