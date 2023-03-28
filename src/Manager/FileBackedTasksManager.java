@@ -63,13 +63,42 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                         task.setDiscrption(taskFromLine[4]);
 
                         if (task.getClass() == Task.class) {
-                            taskById.put(task.getId(), task);
+                            if (task.getId() == idNewNum) {
+                                taskById.put(task.getId(), task);
+                                idNewNum++;
+                            } else if (task.getId() > idNewNum) {
+                                taskById.put(task.getId(), task);
+                                idNewNum = task.getId() + 1;
+                            } else {
+                                idNewNum = task.getId();
+                                taskById.put(task.getId(), task);
+                                idNewNum++;
+                            }
                         } else if (task.getClass() == Epic.class) {
-                            epicById.put(task.getId(), (Epic) task);
+                            if (task.getId() == idNewNum) {
+                                epicById.put(task.getId(),  (Epic) task);
+                                idNewNum++;
+                            } else if (task.getId() > idNewNum) {
+                                epicById.put(task.getId(),  (Epic) task);
+                                idNewNum = task.getId() + 1;
+                            } else {
+                                idNewNum = task.getId();
+                                epicById.put(task.getId(),  (Epic) task);
+                                idNewNum++;
+                            }
                         } else if (task.getClass() == Subtask.class) {
                             Subtask subtask = (Subtask) task;
                             subtask.setEpicId(Integer.parseInt(taskFromLine[5]));
-                            subtaskById.put(subtask.getId(), subtask);
+                            if (subtask.getId() == idNewNum) {
+                                subtaskById.put(subtask.getId(), subtask);
+                                idNewNum++;
+                            } else if (subtask.getId() > idNewNum) {
+                                idNewNum = subtask.getId() + 1;
+                                subtaskById.put(subtask.getId(), subtask);
+                            } else {
+                                subtaskById.put(subtask.getId(), subtask);
+                                idNewNum = Integer.parseInt(taskFromLine[0]);
+                            }
                             epicById.get(subtask.getEpicId()).getSubtasksIds().add(subtask.getId());
                         }
                         } else {
