@@ -1,6 +1,5 @@
 package Task;
 
-import java.util.ArrayList;
 
 public class Task {
     private int id;
