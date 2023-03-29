@@ -18,8 +18,15 @@ public class Main {
             System.out.println(fileBackedTasksManager.printAllSubtask());
             System.out.println();
             System.out.println(fileBackedTasksManager.printTaskById(1));
+            System.out.println(fileBackedTasksManager.printTaskById(2));
+            System.out.println(fileBackedTasksManager.printTaskById(2));
 
-            System.out.println("HISTORY YOUR TASKS");
+            System.out.println(fileBackedTasksManager.printEpicById(3));
+            System.out.println(fileBackedTasksManager.printEpicById(3));
+
+
+        System.out.println("HISTORY YOUR TASKS");
+        System.out.println(fileBackedTasksManager.getHistory());
 
     }
 }
