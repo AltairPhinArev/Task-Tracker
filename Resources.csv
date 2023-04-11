@@ -1,14 +1,11 @@
-id,type,name,status,description,epic
-1,TASK,Hard learn java,IN_PROGRESS,task
-2,TASK,Start to run,NEW,task1
-3,EPIC,Understand How it work,IN_PROGRESS,epic,[5, 6, 7]
-4,EPIC,Hard learn,NEW,epic1,[8, 9]
-5,SUBTASK,Hard learn java,NEW,subtask,3
-6,SUBTASK,Hard learn java,NEW,subtask2,3
-7,SUBTASK,PRINT Subtask,IN_PROGRESS,PRACTICUM,3
-8,SUBTASK,THough about life,NEW,subtask3,4
-9,SUBTASK,Hello,NEW,subtask4,4
-10,TASK,Hello,NEW,task2
+id,type,name,status,description,time,duration,epic
+1,TASK,TEST,DONE,task,2000-10-18T20:18,PT1H40M
+2,TASK,TASK,DONE,vtask,2000-10-18T20:18,PT1H40M
+3,EPIC,Understand How it work,NEW,epic,2000-10-18T20:18,PT0S,[8]
+4,EPIC,Hard learn,DONE,epic1,2000-10-18T20:18,PT0S,[6]
+5,EPIC,Hard learn,IN_PROGRESS,epic1,2000-10-18T20:18,PT0S,[7]
+6,SUBTASK,TEST,DONE,TEST,2000-10-18T20:18,PT1H40M,4
+7,SUBTASK,TEST,IN_PROGRESS,TEST,2000-10-18T20:18,PT1H40M,5
+8,SUBTASK,TEST,NEW,TEST,2000-10-18T20:18,PT1H40M,3
 
-1,2,3
 

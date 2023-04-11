@@ -2,14 +2,16 @@ package Manager;
 
 import Task.*;
 
+import javax.naming.TimeLimitExceededException;
 import java.io.IOException;
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TaskManager {
 
     void removeAllTask();
 
-    void crateTask(Task task) throws IOException;
+    void crateTask(Task task) throws IOException, TimeLimitExceededException;
 
     void updateTask(Task task);
 
@@ -45,4 +47,5 @@ public interface TaskManager {
     List<Task> getHistory() throws IOException;
 
     List<Subtask> printAllSubtaskByEpic(Epic epic);
+    TreeSet<Task> getPrioritizedTasks();
 }

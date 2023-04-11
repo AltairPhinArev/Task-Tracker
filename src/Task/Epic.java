@@ -1,4 +1,6 @@
 package Task;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -10,11 +12,11 @@ public class Epic extends Task {
             }
         }
     }
-    public Epic(int id, String title, StatusTask statusTask , String discrption) {
-        super(id ,title, statusTask , discrption );
+    public Epic(String title, StatusTask statusTask, String discrption , LocalDateTime startTime , Duration duration) {
+        super(title , statusTask , discrption  ,startTime ,Duration.ofMinutes(0));
     }
-    public Epic(String title, StatusTask statusTask , String discrption) {
-        super(title, statusTask , discrption);
+    public Epic(String title,  String discrption , LocalDateTime startTime , Duration duration) {
+        super( title , discrption , startTime , Duration.ofMinutes(0));
     }
 
     public Epic() {

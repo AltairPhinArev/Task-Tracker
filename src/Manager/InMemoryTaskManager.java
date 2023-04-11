@@ -2,10 +2,11 @@ package Manager;
 
 import Task.*;
 
+import javax.naming.TimeLimitExceededException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.TimeoutException;
 
 public class InMemoryTaskManager extends Managers implements TaskManager {
 
@@ -13,15 +14,38 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
 
     public static int idNewNum = 1;
 
-    public static HashMap<Integer , Task> taskById = new HashMap<>();
-    public static HashMap<Integer , Epic> epicById = new HashMap<>();
-    public static HashMap<Integer , Subtask> subtaskById = new HashMap<>();
+    public static HashMap<Integer,Task> taskById = new HashMap<>();
+    public static HashMap<Integer,Epic> epicById = new HashMap<>();
+    public static HashMap<Integer,Subtask> subtaskById = new HashMap<>();
+    public TreeSet<Task> prioritizedTasks;
+    public InMemoryTaskManager() {
+        Comparator<Task> comparator = (task1, task2) -> {
+
+            if (task1.getStartTime().isAfter(task2.getStartTime())) {
+                return 1;
+
+            } else if (task1.getStartTime().isBefore(task2.getStartTime())) {
+                return -1;
+
+            } else {
+                return 0;
+            }
+        };
+
+        prioritizedTasks = new TreeSet<>(comparator);
+    }
 
     @Override
     public void crateTask(Task task) throws IOException {
+        try {
         taskById.put(idNewNum , task);
         task.setId(idNewNum++);
         task.setTypeTask(TypeTask.TASK);
+
+            addPrioritizedTasks(task);
+        } catch (TimeLimitExceededException exception) {
+            System.out.println("Tfdgdfh");
+        }
     }
 
     @Override
@@ -48,7 +72,14 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
     public void createEpic(Epic epic) throws IOException {
         epicById.put(idNewNum, epic);
         epic.setId(idNewNum++);
+        updateEpicStatus(epic.getId());
         epic.setTypeTask(TypeTask.EPIC);
+        try {
+            addPrioritizedTasks(epic);
+        } catch (TimeLimitExceededException exception) {
+            System.out.println("Tfdgdfh");
+        }
+
     }
 
     @Override
@@ -110,18 +141,24 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
 
     @Override
     public ArrayList<Epic> printAllEpic() { //Выво эриков
+        System.out.println("Sorted ->  " + getPrioritizedTasks());
         return new ArrayList<>(epicById.values());
     }
 
     @Override
     public void createSubTask(Subtask subtask) throws IOException {
-        subtask.setId(idNewNum++);
-        subtaskById.put(subtask.getId() , subtask);
-        Epic epic = epicById.get(subtask.getEpicId());
-        epic.setSubtasksIds(subtask.getId());
-        epicById.put(subtask.getEpicId() , epic);
-        updateEpicStatus(subtask.getEpicId());
-        subtask.setTypeTask(TypeTask.SUBTASK);
+        try {
+            addPrioritizedTasks(subtask);
+            subtask.setId(idNewNum++);
+            subtaskById.put(subtask.getId() , subtask);
+            Epic epic = epicById.get(subtask.getEpicId());
+            epic.setSubtasksIds(subtask.getId());
+            epicById.put(subtask.getEpicId() , epic);
+            updateEpicStatus(subtask.getEpicId());
+            subtask.setTypeTask(TypeTask.SUBTASK);
+        } catch (TimeLimitExceededException exception) {
+            System.out.println("Tfdgdfh");
+        }
     }
 
     @Override
@@ -134,19 +171,20 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
 
     @Override
     public Task printTaskById(int id) {
-        inMemoryHistoryManager.add(taskById.get(id));
+        inMemoryHistoryManager.addHistory(taskById.get(id));
         return taskById.get(id);
     }
 
     @Override
     public Epic printEpicById(int id) {
-        inMemoryHistoryManager.add(epicById.get(id));
+        updateEpicStatus(id);
+        inMemoryHistoryManager.addHistory(epicById.get(id));
         return epicById.get(id);
     }
 
     @Override
     public Subtask printSubtaskById(int id) {
-        inMemoryHistoryManager.add(subtaskById.get(id));
+        inMemoryHistoryManager.addHistory(subtaskById.get(id));
         return subtaskById.get(id);
     }
 
@@ -155,6 +193,7 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
         Subtask subtask = subtaskById.get(id);
         Epic epic = epicById.get(subtask.getEpicId());
         inMemoryHistoryManager.remove(id);
+
         epic.removeSubId(id);
         subtaskById.remove(id);
         updateEpicStatus(subtask.getEpicId());
@@ -169,21 +208,26 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
         }
         return subtasks;
     }
+
     @Override
     public List<Task> getHistory() throws IOException {
         return inMemoryHistoryManager.getHistory();
     }
 
-    public HashMap<Integer, Task> getTaskById() {
-        return taskById;
-    }
 
-    public HashMap<Integer,Epic> getEpicById() {
-        return epicById;
-    }
+    public void addPrioritizedTasks(Task task) throws TimeLimitExceededException {
+        for (Task taskTime : getPrioritizedTasks()) {
+            if ((taskTime.getStartTime().isBefore(task.getStartTime()) &&
+                    taskTime.getEndTime().isAfter(task.getStartTime())) ||
+                    (taskTime.getStartTime().isBefore(task.getEndTime()) &&
+                            taskTime.getEndTime().isAfter(task.getEndTime()))) {
 
-    public HashMap<Integer, Subtask> getSubtaskById() {
-        return subtaskById;
+                throw new TimeLimitExceededException("Время выполнения задач не может пересекаться");
+            }
+        }
+        getPrioritizedTasks().add(task);
     }
-
+    public TreeSet<Task> getPrioritizedTasks() {
+        return prioritizedTasks;
+    }
 }
