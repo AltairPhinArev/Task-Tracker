@@ -43,7 +43,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                         if (!line.isBlank()) {
                             List<Task> hisoryTask = historyFromId(historyFromString(line));
                            for (int i = 0; i < hisoryTask.size(); i++) {
-                               //TODO FIX TO ADD HISTORY WITHOUT DUBLICATED NODE OK
                                 historyManager.addHistory(hisoryTask.get(i));
                            }
                             fileBackedTasksManager.getHistory().addAll(historyManager.getHistory());
