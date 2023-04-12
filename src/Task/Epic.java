@@ -15,17 +15,18 @@ public class Epic extends Task {
 
     private LocalDateTime endTime;
 
-    public Epic(String title, StatusTask statusTask, String description , LocalDateTime startTime , Duration duration) {
-        super(title , statusTask , description  ,startTime ,Duration.ofMinutes(0));
+    public Epic(String title, StatusTask statusTask, String discription , LocalDateTime startTime , Duration duration) {
+        super(title , statusTask , discription  ,startTime ,Duration.ofMinutes(0));
     }
 
-    public Epic(String title,  String description ) {
-        super( title , description );
+    public Epic(String title,  String discription ) {
+        super( title , discription );
+        getEndTime();
     }
 
 
-    public Epic(String title,  String description , LocalDateTime startTime , Duration duration) {
-        super( title , description , startTime , Duration.ofMinutes(0));
+    public Epic(String title,  String discription , LocalDateTime startTime , Duration duration) {
+        super( title , discription , startTime , Duration.ofMinutes(0));
     }
 
     public Epic() {
@@ -41,7 +42,8 @@ public class Epic extends Task {
         this.subtasksIds.add(id);
     }
 
-    public void getEndTime(LocalDateTime localDateTime) {
-        endTime = localDateTime;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
+
 }

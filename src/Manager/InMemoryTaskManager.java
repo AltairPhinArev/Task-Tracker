@@ -4,8 +4,10 @@ import Task.*;
 
 import javax.naming.TimeLimitExceededException;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeoutException;
 
 public class InMemoryTaskManager extends Managers implements TaskManager {
 
@@ -81,11 +83,11 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
 
     @Override
     public void createEpic(Epic epic) throws IOException {
+        epicById.put(idNewNum, epic);
+        epic.setId(idNewNum++);
+        updateEpicStatus(epic.getId());
+        epic.setTypeTask(TypeTask.EPIC);
         try {
-            epicById.put(idNewNum, epic);
-            epic.setId(idNewNum++);
-            updateEpicStatus(epic.getId());
-            epic.setTypeTask(TypeTask.EPIC);
             calculateEpicStartAndEndTime(epic);
             addPrioritizedTasks(epic);
         } catch (TimeLimitExceededException exception) {
@@ -246,41 +248,33 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
         LocalDateTime earliestSubtaskStart = LocalDateTime.MAX;
         LocalDateTime latestSubtaskEnd = LocalDateTime.MIN;
 
-        if (epic.getStartTime() != null) {
-            if (epic.getSubtasksIds() != null) {
-                for (Integer id : epic.getSubtasksIds()) {
-                    Subtask subtask = subtaskById.get(id);
-                    if (subtask.getStartTime().isBefore(earliestSubtaskStart)) {
-                        earliestSubtaskStart = subtask.getStartTime();
-                    }
-                    if (subtask.getEndTime().isAfter(latestSubtaskEnd)) {
-                        latestSubtaskEnd = subtask.getEndTime();
-                    }
+        if (epic.getSubtasksIds() != null) {
+            for (Integer id : epic.getSubtasksIds()) {
+                Subtask subtask = subtaskById.get(id);
+                if (subtask.getStartTime().isBefore(earliestSubtaskStart)) {
+                    earliestSubtaskStart = subtask.getStartTime();
                 }
-                if (latestSubtaskEnd.isAfter(epic.getStartTime())) {
-                    epic.setStartTime(latestSubtaskEnd);
-                } else {
-                    epic.setStartTime(epic.getStartTime());
+                if (subtask.getEndTime().isAfter(latestSubtaskEnd)) {
+                    latestSubtaskEnd = subtask.getEndTime();
                 }
+            }
+            if (epic.getStartTime() == null) {
                 epic.setStartTime(earliestSubtaskStart);
+            }
+            if (latestSubtaskEnd.isAfter(epic.getStartTime())) {
+                epic.setEndTime(latestSubtaskEnd);
             } else {
-                epic.setStartTime(epic.getStartTime());
-                epic.setStartTime(epic.getStartTime());
+                epic.setEndTime(epic.getStartTime());
             }
-        } else if (epic.getStartTime() == null) {
-            if (epic.getSubtasksIds() != null) {
-                for (Integer id : epic.getSubtasksIds()) {
-                    Subtask subtask = subtaskById.get(id);
-                    if (subtask.getStartTime().isBefore(earliestSubtaskStart)) {
-                        earliestSubtaskStart = subtask.getStartTime();
-                    }
-                    if (subtask.getEndTime().isAfter(latestSubtaskEnd)) {
-                        latestSubtaskEnd = subtask.getEndTime();
-                    }
-                    epic.getEndTime(latestSubtaskEnd.plusMinutes(subtask.getDuration().toHours()));
-                }
-                epic.setStartTime(earliestSubtaskStart);
+            Duration duration = Duration.between(epic.getStartTime(), epic.getEndTime());
+            epic.setDuration(duration);
+        } else {
+            if (epic.getStartTime() == null) {
+                epic.setStartTime(LocalDateTime.now());
             }
+            epic.setEndTime(epic.getStartTime());
+            epic.setDuration(Duration.ZERO);
         }
     }
+
 }
