@@ -10,8 +10,8 @@ public class Subtask extends Task {
     private LocalDateTime startTime;
     private Duration duration;
 
-      public Subtask(int epicId, String title, StatusTask statusTask, String discrption , LocalDateTime startTime , Duration duration) {
-        super(title, statusTask, discrption , startTime , duration);
+      public Subtask(int epicId, String title, StatusTask statusTask, String description , LocalDateTime startTime , Duration duration) {
+        super(title, statusTask, description , startTime , duration);
         this.epicId = epicId;
     }
 
@@ -26,5 +26,33 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    @Override
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    @Override
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public Duration getDuration() {
+        return duration;
+    }
 }
 

@@ -5,7 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Task {
-    private String discrption;
+    private String description;
     private int id;
     private String title;
     private TypeTask typeTask;
@@ -14,21 +14,27 @@ public class Task {
     private Duration duration;
     private StatusTask statusTask;
 
-    public Task(String title , StatusTask statusTask , String discrption , LocalDateTime startTime , Duration duration) {
+    public Task(String title , StatusTask statusTask , String description , LocalDateTime startTime , Duration duration) {
         this.title = title;
         this.statusTask = statusTask;
-        this.discrption = discrption;
+        this.description = description;
         this.startTime = startTime;
         this.duration = duration;
         endTime =getEndTime();
     }
 
-    public Task(String title , String discrption , LocalDateTime startTime , Duration duration) {
+    public Task(String title , String description , LocalDateTime startTime , Duration duration) {
         this.title = title;
-        this.discrption = discrption;
+        this.description = description;
         this.startTime = startTime;
         this.duration= duration;
         endTime = getEndTime();
+    }
+
+
+    public Task(String title , String description) {
+        this.title = title;
+        this.description = description;
     }
 
     public Task() {
@@ -54,11 +60,11 @@ public class Task {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getDiscrption() {
-        return discrption;
+    public String getDescription() {
+        return description;
     }
-    public void setDiscrption(String discrption) {
-        this.discrption = discrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
     public TypeTask getTypeTask() {
         return typeTask;
@@ -99,7 +105,7 @@ public class Task {
                 ", startTime=" + startTime +
                 ", duration=" + duration +
                 ", statusTask=" + statusTask +
-                ", discrption='" + discrption + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

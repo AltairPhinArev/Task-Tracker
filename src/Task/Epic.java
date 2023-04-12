@@ -12,11 +12,20 @@ public class Epic extends Task {
             }
         }
     }
-    public Epic(String title, StatusTask statusTask, String discrption , LocalDateTime startTime , Duration duration) {
-        super(title , statusTask , discrption  ,startTime ,Duration.ofMinutes(0));
+
+    private LocalDateTime endTime;
+
+    public Epic(String title, StatusTask statusTask, String description , LocalDateTime startTime , Duration duration) {
+        super(title , statusTask , description  ,startTime ,Duration.ofMinutes(0));
     }
-    public Epic(String title,  String discrption , LocalDateTime startTime , Duration duration) {
-        super( title , discrption , startTime , Duration.ofMinutes(0));
+
+    public Epic(String title,  String description ) {
+        super( title , description );
+    }
+
+
+    public Epic(String title,  String description , LocalDateTime startTime , Duration duration) {
+        super( title , description , startTime , Duration.ofMinutes(0));
     }
 
     public Epic() {
@@ -30,5 +39,9 @@ public class Epic extends Task {
     }
     public void setSubtasksIds(int id) {
         this.subtasksIds.add(id);
+    }
+
+    public void getEndTime(LocalDateTime localDateTime) {
+        endTime = localDateTime;
     }
 }

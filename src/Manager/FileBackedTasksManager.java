@@ -78,7 +78,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     task.setId(Integer.parseInt(taskFromLine[0]));
                     task.setTitle(taskFromLine[2]);
                     task.setStatusTask(StatusTask.valueOf(taskFromLine[3]));
-                    task.setDiscrption(taskFromLine[4]);
+                    task.setDescription(taskFromLine[4]);
                     task.setStartTime(LocalDateTime.parse(taskFromLine[5]));
                     task.setDuration(Duration.parse(taskFromLine[6]));
 
@@ -148,7 +148,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 epic.getTypeTask() + "," +
                 epic.getTitle() + "," +
                 epic.getStatusTask() + "," +
-                epic.getDiscrption() + "," +
+                epic.getDescription() + "," +
                 epic.getStartTime() + "," +
                 epic.getDuration() + "," +
                 epic.getSubtasksIds();
@@ -160,7 +160,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 TypeTask.TASK + "," +
                 task.getTitle() + "," +
                 task.getStatusTask().toString() + "," +
-                task.getDiscrption() + "," +
+                task.getDescription() + "," +
                 task.getStartTime() + "," +
                 task.getDuration();
     }
@@ -171,7 +171,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 subtask.getTypeTask() + "," +
                 subtask.getTitle() + "," +
                 subtask.getStatusTask() + "," +
-                subtask.getDiscrption() + "," +
+                subtask.getDescription() + "," +
                 subtask.getStartTime() + "," +
                 subtask.getDuration() + "," +
                 subtask.getEpicId();
