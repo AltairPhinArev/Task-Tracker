@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.TimeoutException;
 
 public class InMemoryTaskManager extends Managers implements TaskManager {
 
@@ -57,7 +56,7 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
 
             addPrioritizedTasks(task);
         } catch (TimeLimitExceededException exception) {
-            System.out.println("Tfdgdfh");
+            System.out.println("TIME_ERROR");
         }
     }
 
@@ -155,7 +154,6 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
 
     @Override
     public ArrayList<Epic> printAllEpic() { //Выво эриков
-        System.out.println("Sorted ->  " + getPrioritizedTasks());
         return new ArrayList<>(epicById.values());
     }
 

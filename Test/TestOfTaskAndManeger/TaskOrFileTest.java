@@ -32,13 +32,13 @@ public abstract class TaskOrFileTest <T extends TaskManager> {
 
     @BeforeEach
     public void setUp() throws IOException, TimeLimitExceededException {
-        taskManager = Managers.getDefault();
+        taskManager = Managers.getDefaultMemory();
     }
 
     @AfterEach
     public void tearDown() {
         taskManager.removeAllTask();
-        taskManager = Managers.getDefault();
+        taskManager = Managers.getDefaultMemory();
     }
 
     @Test

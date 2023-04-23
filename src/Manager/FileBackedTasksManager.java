@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
-    private final File file;
+    private File file;
     public FileBackedTasksManager(File file) {
         this.file = file;
     }
@@ -20,6 +20,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             idNewNum = id + 1;
         }
         return idNewNum;
+    }
+    public FileBackedTasksManager() {
+
     }
 
     public static FileBackedTasksManager loadFromFile(File file) throws ManagerSaveException {

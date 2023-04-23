@@ -31,7 +31,7 @@ class InMemoryHistoryManagerTest {
         task1 = new Task( "ForTest" , StatusTask.NEW ,"null" ,
                 LocalDateTime.of(2000, 10 , 18 , 20 , 18) ,
                 Duration.ofMinutes(100));
-        taskManager = Managers.getDefault();
+        taskManager = Managers.getDefaultMemory();
 
         taskManager.crateTask(task);
         taskManager.crateTask(task1);

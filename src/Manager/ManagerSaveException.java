@@ -1,6 +1,5 @@
 package Manager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 public class ManagerSaveException extends IOException  {
 
