@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +28,6 @@ public class HttpTaskServer {
         InputStream inputStream;
         private final int PORT = 8080;
         private final TaskManager taskManager;
-        HttpClient client = HttpClient.newBuilder().build();
         private final String apiToken;
         private final HttpServer server;
          private final Map<String, String> data = new HashMap<>();
@@ -107,7 +105,7 @@ public class HttpTaskServer {
     }
 
 
-    private void updateTask(HttpExchange exchange) throws IOException, TimeLimitExceededException {
+    private void updateTask(HttpExchange exchange) throws IOException {
         inputStream  = exchange.getRequestBody();
         String body = new String(inputStream.readAllBytes() , DEFAULT_CHARSET);
         Gson gson = new Gson();
@@ -115,7 +113,7 @@ public class HttpTaskServer {
         taskManager.updateTask(task);
     }
 
-    private void updateSubtask(HttpExchange exchange) throws IOException, TimeLimitExceededException {
+    private void updateSubtask(HttpExchange exchange) throws IOException {
         inputStream  = exchange.getRequestBody();
         String body = new String(inputStream.readAllBytes() , DEFAULT_CHARSET);
         Gson gson = new Gson();
@@ -160,20 +158,20 @@ public class HttpTaskServer {
         writeResponse(exchange, gson.toJson(epics), 200);
     }
 
-    private void getAllTask(HttpExchange exchange) throws IOException {
+    private void getAllTask(HttpExchange exchange) throws IOException {;
         Gson gson = new Gson();
-        String json = gson.toJson(taskManager.printAllTask().toString());
+        String json = gson.toJson(taskManager.printAllTask());
         writeResponse(exchange , json , 200);
     }
 
     private void getAllEpic(HttpExchange exchange) throws IOException {
         Gson gson = new Gson();
-        String json = gson.toJson(taskManager.printAllEpic().toString());
+        String json = gson.toJson(taskManager.printAllEpic());
         writeResponse(exchange , json , 200);
     }
     private void getAllSubtask(HttpExchange exchange) throws IOException {
         Gson gson = new Gson();
-        String json = gson.toJson(taskManager.printAllSubtask().toString());
+        String json = gson.toJson(taskManager.printAllSubtask());
         writeResponse(exchange , json , 200);
     }
 

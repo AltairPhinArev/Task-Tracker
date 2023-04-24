@@ -1,13 +1,18 @@
 package Task;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Collection;
+
 
 public class Subtask extends Task {
     private int epicId;
+    @SerializedName("ENDTIMESUB")
     private LocalDateTime endTime;
+    @SerializedName("START TIMES UB")
     private LocalDateTime startTime;
+    @SerializedName("DURATIONS UB")
     private Duration duration;
 
       public Subtask(int epicId, String title, StatusTask statusTask, String discrption , LocalDateTime startTime , Duration duration) {

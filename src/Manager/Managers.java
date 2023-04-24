@@ -2,8 +2,6 @@ package Manager;
 
 import Server.HttpTaskManager;
 
-import java.io.IOException;
-
 public abstract class Managers {
 
     public static TaskManager getDefaultMemory() {
@@ -14,7 +12,7 @@ public abstract class Managers {
         return new InMemoryHistoryManager();
     }
 
-    public static TaskManager getDefault(String url, int port, String key) throws IOException {
+    public static TaskManager getDefault(String url) {
         return new HttpTaskManager(url);
     }
 }

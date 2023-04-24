@@ -16,7 +16,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
         try {
             httpTaskServer = new HttpTaskServer();;
             httpTaskServer.start();
-            kvServerClient = new KVServerClient(url , 8080);
+            //  kvServerClient = new KVServerClient(url , 8080);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -31,7 +31,7 @@ public class HttpTaskManager extends FileBackedTasksManager {
     @Override
     public void crateTask(Task task) throws IOException {
         super.crateTask(task);
-        kvServerClient.save("TASK" , FileBackedTasksManager.taskById.get(task.getId()).toString());
+        //kvServerClient.save("TASK" , FileBackedTasksManager.taskById.get(task.getId()).toString());
     }
 
     @Override

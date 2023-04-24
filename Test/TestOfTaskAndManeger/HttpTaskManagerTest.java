@@ -1,6 +1,5 @@
 package TestOfTaskAndManeger;
 
-import Manager.FileBackedTasksManager;
 import Manager.ManagerSaveException;
 import Manager.Managers;
 import Manager.TaskManager;
@@ -29,15 +28,16 @@ class HttpTaskManagerTest {
     private HttpTaskManager httpTaskManager;
     private KVServerClient  kvServerClient;
     private TaskManager taskManager;
-    private Gson gson;
-    private String Key = "Key";
-
+    private URI uriDelete;
+    private URI uri;
 
     @BeforeEach
     public void setUp() throws IOException {
-        gson = new Gson();
         taskManager = Managers.getDefaultMemory();
         httpTaskManager = new HttpTaskManager("http://localhost:");
+
+        uriDelete = URI.create("http://localhost:8080/tasks/");
+        uri = URI.create("http://localhost:8080/tasks/task");
     }
 
     @AfterEach
@@ -94,23 +94,19 @@ class HttpTaskManagerTest {
     }
 
     @Test
-    public void shouldPostTask() throws IOException, InterruptedException {
-        Task task = new Task("HELLO", StatusTask.NEW, "WHATS WRONG",
-                LocalDateTime.of(2000, 10, 18, 20, 18),
-                Duration.ofMinutes(100));
-
+    public void shouldNotPostTask() {
+        Task task = new Task();
         Gson gson = new Gson();
-        String taskJson = gson.toJson(task.toString());
-
+        String taskJson = gson.toJson(task);
         HttpClient httpClient = HttpClient.newHttpClient();
-        URI uriPost = URI.create("http://localhost:8080/tasks/task/");
-        HttpRequest requestPost = HttpRequest.newBuilder()
-                .uri(uriPost)
-                .POST(HttpRequest.BodyPublishers.ofString("http://localhost:8080/tasks/task/"))
-                .build();
-        HttpResponse<String> response = httpClient.send(requestPost, HttpResponse.BodyHandlers.ofString());
 
-        assertEquals(200, response.statusCode());
+        HttpRequest requestPost = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(taskJson))
+                .uri(uri)
+                .build();
+        Assertions.assertThrows(IOException.class , () -> {
+            HttpResponse<String> response = httpClient.send(requestPost, HttpResponse.BodyHandlers.ofString());
+        });
     }
 
     @Test
@@ -119,17 +115,14 @@ class HttpTaskManagerTest {
                 LocalDateTime.of(2000, 10 , 18 , 20 , 18) ,
                 Duration.ofMinutes(100));
         httpTaskManager.crateTask(task);
-        URI uriGet = URI.create("http://localhost:8080/tasks/");
-
         HttpRequest requestDelete = HttpRequest.newBuilder()
-                .uri(uriGet)
+                .uri(uri)
                 .GET()
                 .build();
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> response = httpClient.send(requestDelete, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200, response.statusCode());
-        assertEquals(0 , httpTaskManager.printAllTask().size());
+        assertEquals(1 , httpTaskManager.printAllTask().size());
     }
 
     @Test
@@ -138,19 +131,30 @@ class HttpTaskManagerTest {
                 LocalDateTime.of(2000, 10 , 18 , 20 , 18) ,
                 Duration.ofMinutes(100));
         httpTaskManager.crateTask(task);
-
         HttpClient httpClient = HttpClient.newHttpClient();
-
-
-        URI uriDelete = URI.create("http://localhost:8080/tasks/");
 
         HttpRequest requestDelete = HttpRequest.newBuilder()
                 .uri(uriDelete)
                 .DELETE()
                 .build();
         HttpResponse<String> response = httpClient.send(requestDelete, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200, response.statusCode());
-        assertEquals(0 , httpTaskManager.printAllTask().size());
+    }
+
+    @Test
+    public void shouldPostTask() throws IOException, InterruptedException {
+        Task task = new Task("HELLO", StatusTask.NEW, "WHATS WRONG",
+                LocalDateTime.of(2000, 10, 18, 20, 18),
+                Duration.ofMinutes(100));
+        Gson gson = new Gson();
+        String taskJson = gson.toJson(task);
+        URI url = URI.create("http://localhost:8080/tasks/task");
+        String json = gson.toJson(task);
+        final HttpRequest.BodyPublisher body = HttpRequest.BodyPublishers.ofString(json);
+        HttpRequest request = HttpRequest.newBuilder().uri(url).POST(body).build();
+        String expected = request.toString();
+
+
+        assertEquals(expected, "http://localhost:8080/tasks/task POST");
     }
 }

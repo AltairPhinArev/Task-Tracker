@@ -1,4 +1,6 @@
 package Task;
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ public class Epic extends Task {
             }
         }
     }
-
+    @SerializedName("end_time")
     private LocalDateTime endTime;
 
     public Epic(String title, StatusTask statusTask, String discription , LocalDateTime startTime , Duration duration) {
