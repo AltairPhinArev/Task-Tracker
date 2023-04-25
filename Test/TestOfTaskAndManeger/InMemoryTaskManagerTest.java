@@ -59,5 +59,4 @@ class InMemoryTaskManagerTest extends TaskOrFileTest <InMemoryTaskManager> {
                 Duration.ofMinutes(100));
         taskManager.createSubTask(subtaskNew);
     }
-
 }

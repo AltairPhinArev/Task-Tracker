@@ -64,7 +64,6 @@ public abstract class TaskOrFileTest <T extends TaskManager> {
 
         Assertions.assertNotNull(taskForRemove);
     }
-
     @Test
     void shouldRemoveAllTask() throws IOException, TimeLimitExceededException {
         taskManager.crateTask(task);
@@ -167,7 +166,6 @@ public abstract class TaskOrFileTest <T extends TaskManager> {
 
         Assertions.assertNotNull(subtask , "У подзадачи нет эпика");
         assertEquals(subtask.getId(), taskManager.printAllSubtaskByEpic(epicToNEw).get(0).getId());
-
     }
 
     @Test
@@ -184,6 +182,7 @@ public abstract class TaskOrFileTest <T extends TaskManager> {
             taskManager.createSubTask(subtaskInvalid);
         });
     }
+
     @Test
     void shouldPrintTaskById() {
         Assertions.assertEquals(task , taskManager.printTaskById(task.getId()));
@@ -252,6 +251,7 @@ public abstract class TaskOrFileTest <T extends TaskManager> {
         Assertions.assertEquals(AllOfSubtask.get(2) , subtaskInProgress);
         Assertions.assertEquals(AllOfSubtask.size() , 3);
     }
+    
     @Test
     public void shouldSortTaskByTime() {
         assertEquals(5 , taskManager.getPrioritizedTasks().size());

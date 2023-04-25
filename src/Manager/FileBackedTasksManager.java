@@ -44,9 +44,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     if (line.isBlank()) {
                         line = br.readLine();
                         if (!line.isBlank()) {
-                            List<Task> hisoryTask = historyFromId(historyFromString(line));
-                           for (int i = 0; i < hisoryTask.size(); i++) {
-                                historyManager.addHistory(hisoryTask.get(i));
+                            List<Task> history = historyFromId(historyFromString(line));
+                           for (int i = 0; i < history.size(); i++) {
+                                historyManager.addHistory(history.get(i));
                            }
                             fileBackedTasksManager.getHistory().addAll(historyManager.getHistory());
                             break;
@@ -292,5 +292,4 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void updateTask(Task task) {
         super.updateTask(task);
     }
-
 }

@@ -41,7 +41,6 @@ public class Task {
 
     }
 
-
     public StatusTask getStatusTask() {
         return statusTask;
     }

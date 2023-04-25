@@ -14,7 +14,5 @@ public class Main {
         FileBackedTasksManager taskManager = new FileBackedTasksManager(new File("Resources.csv"));
         FileBackedTasksManager.loadFromFile(new File("Resources.csv"));
         KVServerClient kvServerClient = new KVServerClient("http://localhost:" , 8080);
-
-
     }
 }

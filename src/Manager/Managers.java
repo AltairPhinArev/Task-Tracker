@@ -16,4 +16,3 @@ public abstract class Managers {
         return new HttpTaskManager(url);
     }
 }
-

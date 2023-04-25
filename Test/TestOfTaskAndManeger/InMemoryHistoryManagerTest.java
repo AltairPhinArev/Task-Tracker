@@ -81,6 +81,4 @@ class InMemoryHistoryManagerTest {
             historyManager.addHistory(null);
         });
     }
-
-
 }

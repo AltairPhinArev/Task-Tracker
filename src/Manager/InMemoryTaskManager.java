@@ -274,5 +274,4 @@ public class InMemoryTaskManager extends Managers implements TaskManager {
             epic.setDuration(Duration.ZERO);
         }
     }
-
 }

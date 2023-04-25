@@ -24,7 +24,6 @@ class FileBackedTasksManagerTest  {
     Subtask subtaskNew;
 
 
-
     @BeforeEach
     public void setUp() throws IOException {
         file = new File("Resources.csv");

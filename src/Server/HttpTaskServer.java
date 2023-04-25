@@ -346,7 +346,6 @@ public class HttpTaskServer {
                 h.close();
             }
         }
-
         private void register(HttpExchange h) throws IOException {
             try {
                 System.out.println("\n/register");
@@ -388,4 +387,3 @@ public class HttpTaskServer {
             h.getResponseBody().write(resp);
         }
     }
-
