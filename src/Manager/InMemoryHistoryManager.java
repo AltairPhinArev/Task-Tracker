@@ -15,8 +15,8 @@ public class InMemoryHistoryManager extends Managers implements HistoryManager {
     private final CustomLinkedList<Task> customLinkedList = new CustomLinkedList<>();
     private final HashMap<Integer, Node<Task>> historyMap = new HashMap<>();
 
-        @Override
-        public ArrayList<Task> getHistory() {
+    @Override
+    public ArrayList<Task> getHistory() {
             return customLinkedList.getTask();
         }
 
