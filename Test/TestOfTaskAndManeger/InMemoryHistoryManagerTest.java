@@ -17,6 +17,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 class InMemoryHistoryManagerTest {
     TaskManager taskManager;
     HistoryManager historyManager;

@@ -24,6 +24,11 @@ import java.util.regex.Pattern;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static jdk.internal.util.xml.XMLStreamWriter.DEFAULT_CHARSET;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public class HttpTaskServer {
         InputStream inputStream;
         private final int PORT = 8080;

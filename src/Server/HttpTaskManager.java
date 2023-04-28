@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public class HttpTaskManager extends FileBackedTasksManager {
 
     private KVServerClient kvServerClient;

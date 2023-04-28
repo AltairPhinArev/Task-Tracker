@@ -22,6 +22,10 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
 
 class HttpTaskManagerTest {
 

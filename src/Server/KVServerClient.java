@@ -9,6 +9,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
 
 public class KVServerClient {
     private final String apiToken;

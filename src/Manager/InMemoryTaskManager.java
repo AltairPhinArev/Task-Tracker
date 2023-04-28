@@ -8,6 +8,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public class InMemoryTaskManager extends Managers implements TaskManager {
 
     HistoryManager inMemoryHistoryManager = Managers.getDefaultHistory();

@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.TreeSet;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public interface TaskManager {
 
     void removeAllTask();

@@ -2,6 +2,11 @@ package Manager;
 
 import Server.HttpTaskManager;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public abstract class Managers {
 
     public static TaskManager getDefaultMemory() {

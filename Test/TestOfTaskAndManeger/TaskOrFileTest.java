@@ -17,6 +17,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public abstract class TaskOrFileTest <T extends TaskManager> {
 
     Epic epicWithoutSubtask;
@@ -251,7 +256,7 @@ public abstract class TaskOrFileTest <T extends TaskManager> {
         Assertions.assertEquals(AllOfSubtask.get(2) , subtaskInProgress);
         Assertions.assertEquals(AllOfSubtask.size() , 3);
     }
-    
+
     @Test
     public void shouldSortTaskByTime() {
         assertEquals(5 , taskManager.getPrioritizedTasks().size());

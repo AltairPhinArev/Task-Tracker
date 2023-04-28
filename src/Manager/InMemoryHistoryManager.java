@@ -5,6 +5,10 @@ import Task.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
 
 public class InMemoryHistoryManager extends Managers implements HistoryManager {
 

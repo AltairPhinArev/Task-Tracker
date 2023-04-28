@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 class InMemoryTaskManagerTest extends TaskOrFileTest <InMemoryTaskManager> {
     @BeforeEach
     public void setUp() throws IOException, TimeLimitExceededException {

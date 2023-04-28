@@ -1,5 +1,10 @@
 package Manager;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 final class Node <E> {
     public E data;
     public Node<E> prev;
