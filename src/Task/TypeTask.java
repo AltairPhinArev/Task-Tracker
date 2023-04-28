@@ -1,7 +1,11 @@
 package Task;
 
-public enum TypeTask {
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
 
+public enum TypeTask {
     TASK,
     EPIC ,
     SUBTASK

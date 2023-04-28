@@ -1,8 +1,12 @@
 package Task;
 
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
 
 public class Task {
     private String description;

@@ -5,6 +5,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
+
 public class Epic extends Task {
     public void removeSubId(int id) {
         for(int i = 0; i < getSubtasksIds().size(); i ++) {

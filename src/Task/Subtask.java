@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/*
+    @author Andrey Panasiuk
+    Git @AltairPhinArev
+ */
 
 public class Subtask extends Task {
     private int epicId;
