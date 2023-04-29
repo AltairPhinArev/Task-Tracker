@@ -25,7 +25,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     @Override
@@ -43,7 +42,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
     public void updateEpicStatus(int id) {
         super.updateEpicStatus(id);
     }
-
 
     @Override
     public ArrayList<Epic> printAllEpic() {
