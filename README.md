@@ -10,7 +10,7 @@ deserialize its state into a CSV file and an HTTP server.
 Technologies used:
 -
 
-- - Java 11, GSON, Http Server, JUnit Test Framework
+- Java 11, GSON, Http Server, JUnit Test Framework
 
 Application functionality:
 -
