@@ -16,8 +16,8 @@ Application functionality:
 -
 The application provides the opportunity to:
 
-- - History storage is implemented based on its LinkedList implementation.
-- - REST API architecture is implemented via Java HttpServer.
+-  History storage is implemented based on its LinkedList implementation.
+-  REST API architecture is implemented via Java HttpServer.
 - When serialized to a file and to an HTTP server, the manager's state (tasks, history, counters) is completely transferred.
 - There is an output of priority tasks.
 - The execution (time and status) of Epic tasks depends only on their internal subtasks.
