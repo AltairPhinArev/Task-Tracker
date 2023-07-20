@@ -52,5 +52,6 @@ public interface TaskManager {
     List<Task> getHistory() throws IOException;
 
     List<Subtask> printAllSubtaskByEpic(Epic epic);
+    
     TreeSet<Task> getPrioritizedTasks();
 }
